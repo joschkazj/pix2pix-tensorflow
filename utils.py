@@ -24,7 +24,10 @@ def load_data(image_path, flip=True, is_test=False):
     img_A = img_A/127.5 - 1.
     img_B = img_B/127.5 - 1.
 
-    img_AB = np.concatenate((img_A, img_B), axis=2)
+    try:
+        img_AB = np.concatenate((img_A, img_B), axis=2)
+    except IndexError:
+        img_AB = np.dstack((img_A, img_B))
     # img_AB shape: (fine_size, fine_size, input_c_dim + output_c_dim)
     return img_AB
 
